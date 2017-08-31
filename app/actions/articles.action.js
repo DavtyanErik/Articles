@@ -10,19 +10,32 @@ export const fetchArticles = () => {
 	}
 }
 
-const addArticlesSync = (payload) => {
-	const type = 'ADD_NEW_ARTICLES';
-	return { type, payload };
-}
-
-// const pinArticle = (id) => {
-// 	const type ='PIN_ARTICLE';
-// 	return { type, payload: id };
-// }
-
 function* makeIterator() {
 	let index = 0;
 	while (true) yield ++index;
 }
 
 const pagination = makeIterator();
+
+const addArticlesSync = (payload) => {
+	const type = 'ADD_NEW_ARTICLES';
+	return { type, payload };
+}
+
+export const pinArticle = (id) => {
+	const type ='CHANGE_PIN_ARTICLE';
+	return { type, payload: id };
+}
+
+export const refresh = () => {
+	return dispatch => {
+		fetch(url(1))
+			.then(blob => blob.json())
+			.then(articles => dispatch(refreshSync(articles.response.results)));
+	}
+}
+
+const refreshSync = (payload) => {
+	const type = 'LATEST_ARTICLES';
+	return { type, payload };
+}

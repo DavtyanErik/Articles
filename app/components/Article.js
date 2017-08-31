@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Card } from 'antd';
+import { Card, Checkbox } from 'antd';
 
 export default
 class Article extends PureComponent {
@@ -17,11 +17,25 @@ class Article extends PureComponent {
 		return (
 			<div style={this.articleStyle}>
 				<article style={{ width: 500 }}>
-					<h2 style={{ textAlign: 'center', marginBottom: 10 }}>
-						{this.props.title}
-					</h2>
+					<div style={{ display: 'flex' }}>
+						<h2
+							style={{ textAlign: 'center', marginBottom: 10 }}
+						>
+							{this.props.title}
+						</h2>
+						<Checkbox
+							onChange={this.props.pin}
+							checked={this.props.pinned}
+						>
+							Pin
+						</Checkbox>
+					</div>
 					<p>{this.props.category}</p>
-					<img style={{ height: 300, width: 500, marginTop: 20 }} src={this.props.picture || this.alt} />
+					<img
+						onClick={this.props.select}
+						style={{ height: 300, width: 500, marginTop: 20 }}
+						src={this.props.picture || this.alt}
+					/>
 				</article>
 			</div>
 		)
