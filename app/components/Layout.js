@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchArticles } from '../actions/articles.action';
 
+import Infinite from 'react-infinite-scroll-component';
+import { Spin } from 'antd';
+import Article from './Article';
+
 const mapStateToProps = ({ articles }) => {
 	return { articles };
 }
@@ -15,13 +19,30 @@ const mapDispatchToProps = (dispatch) => {
 
 class Layout extends PureComponent {
 	componentDidMount() {
-		this.props.fetchArticles(1);
+		this.props.fetchArticles();
 	}
 	render() {
+		const renderArticles = this.props.articles.map(article => {
+			const { id, webTitle, sectionName, fields } = article;
+			const thumbnail = fields ? fields.thumbnail : undefined;
+			return (
+				<Article
+					key={id}
+					picture={thumbnail}
+					title={webTitle}
+					category={sectionName}
+				/>
+			)
+		});
 		return (
-			<div>
-				{this.props.articles.length}
-			</div>
+			<Infinite
+				style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}
+				next={this.props.fetchArticles}
+				hasMore
+				loader={<Spin tip='Loading...' size='large' />}
+			>
+				{renderArticles}
+			</Infinite>
 		);
 	}
 }
