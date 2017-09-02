@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Card, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
 
 export default
 class Article extends PureComponent {
@@ -21,7 +22,9 @@ class Article extends PureComponent {
 						<h2
 							style={{ textAlign: 'center', marginBottom: 10 }}
 						>
-							{this.props.title}
+							<Link to={`/article/${this.props.id}`}>
+								{this.props.title}
+							</Link>
 						</h2>
 						<Checkbox
 							onChange={this.props.pin}

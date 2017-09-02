@@ -1,5 +1,8 @@
-const url = (num) => {
-	return `http://content.guardianapis.com/search?show-fields=thumbnail&page=${num}&api-key=1d4be7b9-5113-4c3a-ba93-9a5a0998eb46`;
+export const apiKey = 'api-key=1d4be7b9-5113-4c3a-ba93-9a5a0998eb46';
+export const apiName = 'http://content.guardianapis.com';
+
+const url = num => {
+	return `${apiName}/search?show-fields=thumbnail&page=${num}&${apiKey}`;
 }
 
 export const fetchArticles = () => {
@@ -17,12 +20,12 @@ function* makeIterator() {
 
 const pagination = makeIterator();
 
-const addArticlesSync = (payload) => {
+const addArticlesSync = payload => {
 	const type = 'ADD_NEW_ARTICLES';
 	return { type, payload };
 }
 
-export const pinArticle = (id) => {
+export const pinArticle = id => {
 	const type ='CHANGE_PIN_ARTICLE';
 	return { type, payload: id };
 }
@@ -35,7 +38,7 @@ export const refresh = () => {
 	}
 }
 
-const refreshSync = (payload) => {
+const refreshSync = payload => {
 	const type = 'LATEST_ARTICLES';
 	return { type, payload };
 }

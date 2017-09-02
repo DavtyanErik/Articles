@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchArticles, pinArticle, refresh } from '../actions/articles.action';
+import { fetchArticleById } from '../actions/single.action';
 import { find } from 'lodash';
 import Infinite from 'react-infinite-scroll-component';
 import { Spin, Modal, Button } from 'antd';
@@ -11,13 +12,12 @@ const mapStateToProps = ({ articles }) => {
 	return { articles };
 }
 
-const mapDispatchToProps = dispatch => {
-	return bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
 		fetchArticles,
 		pinArticle,
-		refresh
+		refresh,
+		fetchArticleById
 	}, dispatch);
-}
 
 class Layout extends PureComponent {
 	state = {
